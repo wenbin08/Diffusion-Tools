@@ -14,14 +14,20 @@ cd Diffusion-Tools
 ## 安装资源包
 
 ```
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
 
 
-# 使用案例
+# 如何使用
+
+以使用`sdxl`为例
+
+```
+python demo/sdxl.py
+```
 
 
 
-
+**因autodl下载huggingface模型自动下载到系统盘，建议先在数据盘下载模型，然后更改模型路径**
 
