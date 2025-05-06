@@ -3,6 +3,7 @@ import os
 import argparse
 from diffusers import StableDiffusion3Pipeline
 from diffusers import StableDiffusionPipeline
+from diffusers import DiffusionPipeline
 from diffusers import FluxPipeline
 
 def parse_args():
@@ -28,13 +29,18 @@ def main():
     os.makedirs(args.output, exist_ok=True)
     
     # 加载模型
-    if args.model == "black-forest-labs/FLUX.1-dev":
+    if args.model == "black-forest-labs/FLUX.1-dev" or "FLUX" in args.model or "flux" in args.model:
         pipe = FluxPipeline.from_pretrained("black-forest-labs/FLUX.1-dev", torch_dtype=torch.bfloat16)
         pipe.enable_model_cpu_offload() #save some VRAM by offloading the model to CPU. Remove this if you have enough GPU power
-    if args.model == "stabilityai/stable-diffusion-3.5-large":
+    if args.model == "stabilityai/stable-diffusion-3.5-large" or "35" in args.model or "3.5" in args.model:
         pipe = StableDiffusion3Pipeline.from_pretrained(
             args.model, 
             torch_dtype=torch.bfloat16
+        ).to("cuda")
+    if args.model == "stabilityai/stable-diffusion-xl-base-1.0" or "XL" in args.model or "xl" in args.model:
+        pipe = DiffusionPipeline.from_pretrained(
+            args.model, 
+            torch_dtype=torch.float16
         ).to("cuda")
     else:
         pipe = StableDiffusionPipeline.from_pretrained(
@@ -42,6 +48,7 @@ def main():
             torch_dtype=torch.float16
         ).to("cuda")
 
+    
 
     # 读取输入文件
     with open(args.input, 'r', encoding='utf-8') as f:
