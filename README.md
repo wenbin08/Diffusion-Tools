@@ -13,8 +13,6 @@ cd Diffusion-Tools
 
 ## 安装资源包
 
-本机使用Pytorch 2.1.2   Python 3.10    CUDA 11.8
-
 ```
 pip install -r requirements.txt
 ```
@@ -23,15 +21,21 @@ pip install -r requirements.txt
 
 # 如何使用
 
-以使用`sdxl`为例
-
-```
-python demo/sdxl.py
-```
-
-
-
 **因autodl下载huggingface模型自动下载到系统盘，建议先在数据盘下载模型，然后更改模型路径**
+
+```
+python run.py --model stabilityai/stable-diffusion-xl-base-1.0 --input test.txt --output ./outputs --height 512 --width 512 --steps 40
+```
+
+`--model`：模型路径 or Huggingface 模型ID
+
+`--input`：输入文本文件路径
+
+`--output`：输出图片目录
+
+`--height --width`：输出图片高度/宽度
+
+`--steps`：推理步数
 
 
 
@@ -39,13 +43,5 @@ python demo/sdxl.py
 
 ```
 huggingface-cli download --resume-download stabilityai/stable-diffusion-xl-base-1.0 --local-dir /root/autodl-tmp/SDXL
-```
-
-## 更改路径
-
-```
-# pipe = DiffusionPipeline.from_pretrained("stabilityai/stable-diffusion-xl-base-1.0", torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
-
-pipe = DiffusionPipeline.from_pretrained("/root/autodl-tmp/SDXL", torch_dtype=torch.float16, use_safetensors=True, variant="fp16")
 ```
 
