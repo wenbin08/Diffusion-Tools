@@ -45,3 +45,6 @@ python run.py --model stabilityai/stable-diffusion-xl-base-1.0 --input test.txt 
 huggingface-cli download --resume-download stabilityai/stable-diffusion-xl-base-1.0 --local-dir /root/autodl-tmp/SDXL
 ```
 
+**注意：本地模型文件夹命名，否则脚本会有问题**
+
+`SDXL or SDxl` `SD35 or SD3.5` `FLUX or flux`
